@@ -1,0 +1,152 @@
+*{margin:0;padding:0;}
+#top{
+    width:100%;
+    height:37px;
+    background: #F7F7F7;
+    border: 1px solid  #CCCCCC;
+}
+#top .list{
+    margin-left:55%;
+}
+#top a{
+    text-decoration: none;
+    /*padding:5px 8px;*/
+}
+#top a:last-child:hover{
+    text-decoration: none;
+    padding:5px 8px;
+}
+#top .list a.par{
+    position:relative;
+}
+#top .list a.par>img{
+    position:relative;
+    top:6px;
+    left:0;
+}
+#container{
+    width:1200px;
+    margin: 0 auto;
+}
+#header{
+    margin-top:15px;
+}
+#search{
+    /*width:400px;*/
+    float:right;
+    position:relative;
+}
+#search::after,#header::after{
+    content:"";
+    display: block;
+    clear:both;
+}
+#search .search-input{
+    width:330px;
+    height:30px;
+    line-height:30px;
+    display:inline-block ;
+    outline:none;
+    background: #fff;
+    padding-left:10px;
+    font-size:15px;
+}
+#search .search-btn{
+    width:40px;
+    height:30px;
+    line-height:30px;
+    text-align:center;
+    display:inline-block ;
+    color:#fff;
+    font-size:14px;
+    text-decoration: none;
+    outline:none;
+    background: #B71B22;
+    padding:2px 5px;
+    margin-right:130px;
+    margin-top:11px;
+    margin-bottom:11px;
+}
+#search .search-cart {
+    display: inline-block;
+    background: url(../img/header/cart.png);
+    width: 111px;
+    height: 31px;
+    position:absolute;
+    top:13px;
+    right:0px;
+}
+.nav{
+    width:1200px;
+    height:48px;
+    margin-top:20px;
+}
+.nav>ul{
+    list-style: none;
+    margin-left:104px;
+    width:909px;
+    height:30px;
+}
+.nav>ul>li{
+    float:left;
+    margin-top:15px;
+}
+.nav>ul>li>a,.nav .dropdown>li>ul.dropdown-menu a{
+    width:100px;
+    height:30px;
+    line-height:30px;
+    display: inline-block;
+    text-decoration:none;
+    color:#B77D66;
+    font-size:15px;
+    border-left:1px solid #B77D66;
+    text-align: center;
+}
+.nav .dropdown>li>ul.dropdown-menu a{
+    border:1px dotted #ddd;
+}
+.nav .dropdown>li>ul.dropdown-menu a:hover{
+    background: #ddd;
+}
+/*鼠标滑动显示菜单*/
+.dropdown{
+    position: relative;
+}
+.dropdown>li>a{
+    display: block;
+}
+.nav .dropdown>li>ul.dropdown-menu{
+    list-style:none;
+    display:none;
+    margin:0; padding:0;
+    position:absolute;
+    z-index:10;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

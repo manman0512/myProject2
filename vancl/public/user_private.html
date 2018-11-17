@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8">	
+	</head>
+	<body onload="page_load()">
+		<details>
+			<summary>
+				用户中心
+			</summary>
+			<summary>
+				<div>
+					<span>用户名</span>
+					<input type="text" id="uname" readonly>
+				</div>	
+				<div>
+					<span>修改密码</span>
+					<input type="password" id="upwd">
+				</div>	
+				<div>
+					<span>修改头像</span>
+					<input type="text" id="avatar">
+				</div>
+				<div>
+					<span>修改邮箱</span>
+					<input type="email" id="email" readonly>
+				</div>
+				<div>
+					<span>修改手机号</span>
+					<input type="tel" id="phone" readonly>
+				</div>
+				<div>
+					<span>修改性别</span>
+					<select id="gender" value>
+						<option value="0" id="gender0">女</option>
+						<option value="1" id="gender1">男</option>
+						<option value="null" id="gender2">保密</option>
+					</select>
+				</div>
+				<!--
+				<div>
+					<span>修改真实姓名</span>
+					<input type="text"id="user_name">
+				</div>
+				-->
+				<div>
+					<input type="button" value="注销用户" onclick="user_delete()">
+				  <input type="button"value="确认修改" onclick="update()">	
+				</div>
+			</summary>
+		</details>
+		<script src="common.js"></script>
+		<script>
+			function page_load(){
+				var xhr=createXhr();
+				xhr.onreadystatechange=function(){
+					if(xhr.readyState==4&&xhr.status==200){
+						var res=xhr.responseText;
+						var user=JSON.parse(res);
+						console.log(res);
+						$('uname').value=user.uname;
+						$('upwd').value=user.upwd;
+						$("email").value=user.email;
+						$("phone").value=user.phone;
+						$("avatar").value=user.avatar;
+						if(user.gender==0){
+							$("gender0").selected=true;
+						}else if(user.gender==1){
+							$("gender1").selected=true;
+						}else{
+							$("gender2").selected=true;
+						}		
+					}
+				}
+				var param=new URLSearchParams(location.search);
+			    var uid=param.get('uid');
+				console.log(uid);
+				xhr.open('get','/user/sel?uid='+uid,true);
+				xhr.send(null);
+			}
+			function update(){
+				var xhr=createXhr();
+				xhr.onreadystatechange=function(){
+				 if(xhr.readyState==4&&xhr.status==200){
+					var res=xhr.responseText;
+					if(res=="1"){
+						alert('修改成功');
+						location.href="index.html";
+					}else{
+						alert('服务器繁忙，请稍后再试');
+					}	
+				 }
+				}
+				xhr.open('post','/user/update',true);
+				xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+				var uname=$('uname').value;
+				var upwd=$('upwd').value;
+				var email=$('email').value;
+				var phone=$('phone').value;
+				var avatar=$('avatar').value;
+				var gender=$('gender').value;
+				var param=new URLSearchParams(location.search);
+			    var uid=param.get('uid');
+				var formdata="uname="+uname+"&upwd="+upwd+"&phone="+phone+"&gender="+gender+"&avatar="+avatar+"&email="+email+"&uid="+uid;
+				xhr.send(formdata);
+				console.log(formdata);
+			}
+			function user_delete(){
+				var xhr=createXhr();
+				xhr.onreadystatechange=function(){
+					if(xhr.readyState==4&&xhr.status==200){
+						var res=xhr.responseText;
+						if(res=='0'){
+							alert('服务器繁忙，请稍后再试');
+						}else{
+							alert('注销成功');
+							location.href="index.html";
+						}
+					}
+				}
+				var param=new URLSearchParams(location.search);
+				var uid=param.get('uid');
+				console.log(uid);
+				xhr.open('get','/user/delete?uid='+uid,true);
+				xhr.send(null);
+			}
+		</script>
+	</body>
+</html>

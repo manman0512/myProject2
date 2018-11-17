@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+	<title>用户登录</title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" href="css/base.css"/>
+	<link rel="stylesheet" href="css/loin.css"/>
+</head>
+<body>
+	<div id="container">
+		<div class="top clear">
+			<a href="index.html"><img src="img/login/logo_new.jpg" alt=""/></a>
+			<a href="#" class="right">帮助</a>
+		</div>
+		<div class="main clear">
+			<div class="main-left">
+				<img src="img/login/login120412_newlogo.jpg" alt=""/>
+			</div>
+			<div class="main-right right">
+				<span>凡客Vancl登录</span>
+				<span>没有账户 <a href="">注册</a></span>
+				<div class="content">
+					<span>用户登录</span>
+					<form action="">
+						<div>
+							<input type="text" id="uname" placeholder="请输入用户名" autofocus  >
+						</div>
+						<div>
+							<input type="password" id="upwd" placeholder="请输入密码"  >
+						</div>
+						<div>
+							<a href="#">找回密码</a>
+						</div>
+						<div>
+							<input type="button" value="立即登录" onclick="login()">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	    <iframe src="footer.html" frameborder="0"></iframe>
+		<script src="common.js"></script>
+		<script >
+			// function login(){
+			// 	var xhr=createXhr();
+			// 	xhr.onreadystatechange=function(){
+			// 		if(xhr.readyState==4&&xhr.status==200){
+			// 			var res=xhr.responseText;
+			// 			if(res=="0"){
+			// 				alert("请输入用户名");
+			// 			}
+			// 			if(res=="1"){
+			// 				alert('请输入密码');
+			// 			}
+			// 			if(res=="2"){
+			// 				location.href="index.html";
+			// 			}
+			// 			if(res=="3"){
+			// 				alert('用户名或密码不正确');
+			// 			}
+			// 		}
+			// 	}
+			// 	xhr.open('post','/user/login',true);
+			// 	xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+			// 	var uname=$('uname').value;
+			// 	var upwd=$('upwd').value;
+			// 	var formdata="uname="+uname+"&upwd="+upwd;
+			// 	xhr.send(formdata);
+			// }
+		</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8">	
+	</head>
+	<body onload="select()">
+		<table border="1px">
+			<thead>
+				<tr>
+					<th>用户编号</th>
+					<th>用户姓名</th>
+					<th>用户密码</th>
+					<th>用户邮箱</th>
+					<th>用户手机</th>
+					<th>用户头像</th>
+					<th>用户性别</th>
+					<th>用户操作</th>
+				</tr>
+			</thead>
+			<tbody id="tb">
+			
+			</tbody>
+		</table>
+		<script	src="common.js"></script>
+		<script>
+			function select(){
+				var xhr=createXhr();
+				xhr.onreadystatechange=function(){
+					
+					if(xhr.readyState==4&&xhr.status==200){
+						var res=xhr.responseText;
+						var user=JSON.parse(res);
+						var html="";
+						for(var i=0;i<user.length;i++){
+							html+="<tr><td>"+user[i].uid+"</td>"
+									+"<td>"+user[i].uname+"</td>"
+									+"<td>"+user[i].upwd+"</td>"
+									+"<td>"+user[i].email+"</td>"
+									+"<td>"+user[i].phone+"</td>"
+									+"<td>"+user[i].avatar+"</td>"
+									+"<td>"+user[i].gender+"</td>"
+									+"<td><a href='user_private.html?uid="+user[i].uid+"'>点击操作</a></td></tr>";
+									//console.log(user[i].uid);
+						}
+						$('tb').innerHTML=html;
+					}
+				}
+				xhr.open('get','/user/select',true);
+				xhr.send(null);
+			}
+		</script>
+	</body>
+</html>

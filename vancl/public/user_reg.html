@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+	<title>用户注册</title>
+	<meta charset="utf-8"/>
+</head>
+<body>
+	<form>
+		<div>
+			<input type="text" id="uname" placeholder="请注册您的用户名" required  onblur="check_uname()">
+			<span id="showUname"></span>
+		</div>
+		<div>
+			<input type="password" id="upwd" placeholder="请输入您的密码" required onblur="check_upwd()" onfocus="show_upwd()">
+			<span id="showUpwd"></span>
+		</div>
+		<div>
+			<input type="password" id="upwd1" placeholder="请再次输入您的密码" required onblur="check_upwd1()">
+			<span id="showUpwd1"></span>
+		</div>
+		<div>
+			<input type="email" id="email" placeholder="请输入您的邮箱" required onblur="check_email()">
+			<span id="showEmail"></span>
+		</div>
+		<div>
+			<input type="tel" id="phone" placeholder="请输入您的手机号" required onblur="check_phone()">
+			<span id="showPhone"></span>
+		</div>
+		<div>
+			<input type="checkbox" id="item"><label for="item"><a href="#">请阅读《凡客诚品服务条款》</a></label>
+		</div>
+		<div>
+			<input type="button" value="立即注册" onclick="isReg()">
+		</div>
+	</form>
+	<script src="common.js"></script>
+	<script>
+	  var checkUname=false;
+		function check_uname(){
+			var xhr=createXhr();
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					var res=xhr.responseText;
+					if(res=="0"){
+						$('showUname').innerHTML="用户名不能为空";
+						checkUname=false;
+					}else if(res=="1"){
+						$('showUname').innerHTML="用户名已经被占用";
+						checkUname=false;
+					}else if(res=="2"){
+						$('showUname').innerHTML="通过";
+						checkUname=true;
+					}
+				}
+			}
+			var uname=$('uname').value
+			xhr.open('get','/user/check_uname?uname='+uname,true);
+			xhr.send(null);
+		}
+		var checkUpwd=false;
+		function check_upwd(){
+			var upwd=$("upwd").value;
+			if(!upwd){
+				$('showUpwd').innerHTML="用户密码不能为空";
+				checkUpwd=false;
+			}else{
+				if(upwd.length<6||upwd.length>16){
+					$("showUpwd").innerHTML="密码格式不正确";
+					checkUpwd=false;
+				}else{
+					$('showUpwd').innerHTML="通过";
+					checkUpwd=true;
+				}
+			}
+		}
+		function show_upwd(){
+			$('showUpwd').innerHTML="密码6-16位";
+		}
+		var checkUpwd1=false;
+		function check_upwd1(){
+			var upwd1=$('upwd1').value;
+			var upwd=$('upwd').value;
+			if(!upwd1){
+				$('showUpwd1').innerHTML="密码不能为空";
+				checkUpwd1=true;
+			}else if(upwd1!=upwd){
+				$('showUpwd1').innerHTML="两次密码不一样";
+				checkUpwd1=false;
+			}else if(upwd1.length<6||upwd.length>16){
+				$('showUpwd1').innerHTML="密码格式不正确";
+				checkUpwd1=false;
+			}else{
+				$("showUpwd1").innerHTML="通过";
+				checkUpwd1=true;
+			}
+		}
+
+  	var checkEmail=false;
+		function check_email(){
+		  var xhr=createXhr();
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					var res=xhr.responseText;
+					if(res=="0"){
+						$("showEmail").innerHTML="请输入邮箱";
+						checkEmial=false;
+					}else if(res=="1"){
+						$("showEmail").innerHTML="邮箱已经被占用";
+						checkEmail=false;
+					}else if(res=="2"){
+						$("showEmail").innerHTML="通过"
+						checkEmail=true;
+					}
+				}
+			}	
+				var email=$('email').value;
+				xhr.open('get','/user/check_email?email='+email,true);
+				console.log(email);
+				xhr.send(null);		
+		}
+		var checkPhone=false;
+		function check_phone(){
+			var xhr=createXhr();
+			xhr.onreadystatechange=function(){
+				if(xhr.readyState==4&&xhr.status==200){
+					var res=xhr.responseText;
+					if(res=="0"){
+						$("showPhone").innerHTML="手机号不能为空";
+						checkPhone=false;
+					}else if(res=="1"){
+						$("showPhone").innerHTML="手机号已经被占用";
+						checkPhone=false;
+					}else if(res=="2"){
+						$("showPhone").innerHTML="通过";
+						checkPhone=true;
+					}
+				}
+			}
+			var phone=$('phone').value;
+			xhr.open('get','/user/check_phone?phone='+phone,true);
+			xhr.send(null);
+		}
+	
+		function isReg(){
+			var isRead=$("item").checked;
+			if(checkUname&&checkUpwd&&checkUpwd1&&checkPhone&&checkEmail&&isRead){
+				console.log(111);
+				var xhr=createXhr();
+				xhr.onreadystatechange=function(){
+					if(xhr.readyState==4&&xhr.status==200){
+						var res=xhr.responseText;
+						if(res=="1"){
+							alert('注册成功');
+							location.href="http://127.0.0.1:3000/user_login.html";
+						}else{
+							alert("注册失败，请重新注册");
+						}
+					}
+				}
+				xhr.open('post','/user/reg',true);
+	
+				xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+				var uname=$('uname').value;
+				var upwd=$('upwd').value;
+				var email=$('email').value;
+				var phone=$('phone').value;
+				var formdata="uname="+uname+"&upwd="+upwd+"&email="+email+"&phone="+phone;
+				xhr.send(formdata);
+			}
+		}
+	</script>
+</body>
+</html>
